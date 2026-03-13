@@ -9,6 +9,16 @@
         .section { background: white; padding: 20px; margin-top: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         h2 { color: #6c5ce7; }
         .btn { display: inline-block; background: #a29bfe; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+/* 這是標題跳動的動畫 */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+h1 {
+    display: inline-block;
+    animation: bounce 2s infinite; /* 讓標題每兩秒跳動一次 */
+}
     </style>
 </head>
 <body>
@@ -29,3 +39,4 @@
     </div>
 </body>
 </html>
+
