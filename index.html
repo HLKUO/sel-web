@@ -5,63 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEL 社會情緒學習活動</title>
     <style>
-        body { 
-            font-family: 'Microsoft JhengHei', sans-serif; 
-            line-height: 1.6; 
-            color: #333; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 20px; 
-            background-color: #f0f2f5; 
+        body { font-family: 'Microsoft JhengHei', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f0f2f5; }
+        header { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: white; padding: 40px 20px; text-align: center; border-radius: 15px; margin-bottom: 25px; }
+        
+        /* 標題跳動動畫 */
+        h1 { display: inline-block; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        .section { background: white; padding: 30px; margin-bottom: 25px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        
+        /* 圖片容器與動畫 */
+        .image-container { text-align: center; overflow: hidden; border-radius: 10px; position: relative; height: 350px; }
+        .hero-img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: opacity 1s ease-in-out; /* 圖片切換時會有 1 秒的淡入淡出 */
         }
-        header { 
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe); 
-            color: white; 
-            padding: 40px 20px; 
-            text-align: center; 
-            border-radius: 15px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            margin-bottom: 25px;
-        }
-        h1 {
-            display: inline-block;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .section { 
-            background: white; 
-            padding: 30px; 
-            margin-bottom: 25px; 
-            border-radius: 15px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-        }
-        .hero-img {
-            width: 100%; 
-            max-height: 350px; 
-            object-fit: cover; 
-            border-radius: 10px;
-            display: block;
-        }
-        h2 { 
-            color: #6c5ce7; 
-            border-left: 5px solid #6c5ce7; 
-            padding-left: 15px; 
-        }
-        .btn { 
-            display: inline-block; 
-            background: #6c5ce7; 
-            color: white; 
-            padding: 12px 25px; 
-            text-decoration: none; 
-            border-radius: 25px; 
-            font-weight: bold; 
-            margin-top: 15px; 
-            cursor: pointer;
-            border: none;
-        }
+
+        .btn { display: inline-block; background: #6c5ce7; color: white; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; border: none; }
     </style>
 </head>
 <body>
@@ -71,28 +31,45 @@
         <p>SEL 社會情緒學習：認識自己，連結他人</p>
     </header>
 
-    <div class="section" style="padding: 15px; text-align: center;">
-       <img src="https://picsum.photos/800/400?random=1" alt="大自然的療癒力量" class="hero-img">
-        <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">🍃 讓平靜的風景帶給你內心的力量</p>
+    <div class="section">
+        <div class="image-container">
+            <img id="myImage" src="https://picsum.photos/800/400?random=1" alt="大自然的療癒力量" class="hero-img">
+        </div>
+        <p style="text-align: center; font-size: 0.9rem; color: #666; margin-top: 10px;">
+            🍃 內心的風景會隨時間流轉（每 5 秒自動更換照片）
+        </p>
     </div>
 
     <div class="section">
         <h2>🌈 活動目標</h2>
-        <p>透過「自我覺察」與「負責任的決定」，幫助我們在壓力大時找到平靜，並與朋友建立更深層的連結。</p>
-    </div>
-
-    <div class="section">
-        <h2>⛈️ 今日挑戰：情緒天氣預報</h2>
-        <p>閉上眼睛 30 秒，感受你現在的情緒。是晴天、午後雷陣雨，還是微風徐徐的陰天？</p>
+        <p>透過「自我覺察」與「負責任的決定」，幫助我們在壓力大時找到平靜。</p>
         <button class="btn" onclick="showSurprise()">點我記錄今日心情</button>
     </div>
 
     <script>
+        // --- 自動換圖 JavaScript ---
+        const imgElement = document.getElementById('myImage');
+
+        function changeImage() {
+            // 先讓圖片變透明 (淡出)
+            imgElement.style.opacity = 0;
+
+            // 等 1 秒淡出完成後，更換網址再變回不透明 (淡入)
+            setTimeout(() => {
+                // 使用 Date.now() 是為了產生一個絕對不重複的數字，強制瀏覽器換新圖
+                imgElement.src = `https://picsum.photos/800/400?random=${Date.now()}`;
+                imgElement.style.opacity = 1;
+            }, 1000);
+        }
+
+        // 設定「每 5000 毫秒（5 秒）」執行一次 changeImage 函數
+        setInterval(changeImage, 5000);
+
+        // --- 原本的按鈕功能 ---
         function showSurprise() {
-            alert("太棒了！記錄心情是自我覺察的第一步。無論今天是什麼天氣，都給努力的自己一個抱抱吧！🫂");
+            alert("太棒了！記錄心情是自我覺察的第一步。🫂");
         }
     </script>
 
 </body>
 </html>
-
